@@ -148,26 +148,121 @@ def check_database():
 
 @st.cache_data(ttl=2)
 def load_sheet(sheet_name):
-    """Membaca satu sheet dari Excel."""
+    """Membaca satu sheet dari Excel dengan normalisasi tipe data."""
+
     if not EXCEL_FILE.exists():
         return pd.DataFrame()
 
     try:
+
         df = pd.read_excel(
             EXCEL_FILE,
             sheet_name=sheet_name
         )
 
-        # Hilangkan kolom Unnamed
+        # =====================================================
+        # HILANGKAN KOLOM UNNAMED
+        # =====================================================
+
         df = df.loc[
             :,
             ~df.columns.astype(str).str.startswith("Unnamed")
         ]
 
+        # =====================================================
+        # NORMALISASI KOLOM TEKS
+        # =====================================================
+
+        text_columns = [
+            "NIK",
+            "NAMA",
+            "RT",
+            "RW",
+            "ALAMAT",
+            "HP",
+            "REKENING",
+
+            "ITEM_ID",
+            "ITEM",
+            "JENIS",
+
+            "TRANSAKSI_ID",
+            "DETAIL_ID",
+
+            "PENJUALAN_ID",
+
+            "MUTASI_ID",
+            "JENIS_MUTASI",
+            "REFERENSI",
+
+            "KEUANGAN_ID",
+            "KETERANGAN"
+        ]
+
+        for col in text_columns:
+
+            if col in df.columns:
+
+                df[col] = (
+                    df[col]
+                    .fillna("")
+                    .astype(str)
+                    .str.strip()
+                )
+
+        # =====================================================
+        # NORMALISASI KOLOM NUMERIK
+        # =====================================================
+
+        numeric_columns = [
+            "KG",
+            "HARGA",
+            "SUBTOTAL",
+            "TOTAL KG",
+            "TOTAL HARGA",
+            "HARGA SETOR",
+            "DEBIT",
+            "KREDIT",
+            "NO"
+        ]
+
+        for col in numeric_columns:
+
+            if col in df.columns:
+
+                df[col] = pd.to_numeric(
+                    df[col],
+                    errors="coerce"
+                ).fillna(0)
+
+        # =====================================================
+        # NORMALISASI KOLOM TANGGAL
+        # =====================================================
+
+        date_columns = [
+            "TANGGAL",
+            "TANGGAL TRANSAKSI",
+            "TANGGAL PENDAFTARAN",
+            "TANGGAL MULAI BERLAKU"
+        ]
+
+        for col in date_columns:
+
+            if col in df.columns:
+
+                df[col] = pd.to_datetime(
+                    df[col],
+                    errors="coerce"
+                )
+
         return df
 
     except Exception as e:
-        st.error(f"Gagal membaca sheet {sheet_name}: {e}")
+
+        st.error(
+            f"Gagal membaca sheet {sheet_name}: {e}"
+        )
+
         return pd.DataFrame()
 
 
