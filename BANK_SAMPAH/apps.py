@@ -796,6 +796,7 @@ def generate_mutasi_pdf(
 # ============================================================
 
 def sidebar():
+    # Menghitung lokasi logo secara aman
     base_dir = Path(__file__).parent
     logo_path = base_dir / "assets" / "logo.png"
     root_logo_path = base_dir.parent / "assets" / "logo.png"
@@ -815,13 +816,9 @@ def sidebar():
     st.sidebar.caption("Sistem Informasi Pendataan Bank Sampah")
     st.sidebar.divider()
 
-    # --- KODE ANTI-ERROR STREAMLIT ---
-    # Jika ada pesanan pindah halaman dari tombol "Simpan", 
-    # terapkan SEBELUM menu digambar.
     if "pindah_halaman" in st.session_state:
         st.session_state.menu_aktif = st.session_state.pindah_halaman
-        del st.session_state.pindah_halaman # Hapus pesan setelah dipakai
-    # ---------------------------------
+        del st.session_state.pindah_halaman
 
     menu = st.sidebar.radio(
         "MENU",
@@ -840,10 +837,19 @@ def sidebar():
 
     st.sidebar.divider()
 
+    # 1. Indikator Status Koneksi Google Sheets
     if check_database():
         st.sidebar.success("Google Sheets Terhubung 🟢")
     else:
         st.sidebar.error("Google Sheets Terputus 🔴")
+
+    st.sidebar.divider()
+
+    # 2. Info User & Tombol Logout (Di Bawah Google Sheets Terhubung)
+    st.sidebar.write(f"👤 Login sebagai: **{st.session_state.get('user', 'Pengurus')}**")
+    if st.sidebar.button("🚪 Logout", use_container_width=True):
+        logout()
+
     return menu
 
 # ============================================================
