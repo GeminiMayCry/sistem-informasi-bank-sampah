@@ -4190,11 +4190,11 @@ def render_floating_credits():
     st.markdown(
         """
         <style>
-        /* Mengunci posisi dan lebar popover di KANAN/KIRI BAWAH */
+        /* Mengunci posisi dan lebar popover di KIRI BAWAH */
         div[data-testid="stPopover"] {
             position: fixed !important;
             bottom: 20px !important;
-            left: 20px !important; /* <-- DIUBAH KE KIRI */
+            left: 20px !important;
             right: auto !important;
             z-index: 999999 !important;
             width: auto !important;
@@ -4220,9 +4220,13 @@ def render_floating_credits():
             background-color: #1b5e20 !important;
         }
 
-        /* Mengunci lebar isi popover saat diklik agar tidak melar */
+        /* MEMBUAT ISI POPOVER MUNCUL SEMUA TANPA SCROLLING */
         div[data-testid="stPopoverBody"] {
             max-width: 320px !important;
+            height: auto !important;              /* Tinggi menyesuaikan seluruh isi otomatis */
+            min-height: max-content !important;   /* Memaksa kontainer muat menampung semua teks */
+            max-height: 90vh !important;          /* Batas aman agar tidak terpotong layar (90% layar) */
+            overflow: hidden !important;          /* Menghilangkan scrollbar secara paksa */
         }
         </style>
         """,
@@ -4246,7 +4250,7 @@ def render_floating_credits():
             * **Tuhan Yang Maha Esa**
             * **Kelurahan Balas Klumprik**
             * **Dosen Pembimbing Lapangan (DPL)**
-            * **Teman-teman KKN Kelompok 27 Surabaya UPNVJT**
+            * **Teman-teman KKN Kel. 27 UPNVJT**
             """
         )
         
