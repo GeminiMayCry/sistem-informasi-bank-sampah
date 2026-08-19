@@ -1,0 +1,63 @@
+======================================================
+PANDUAN MENJALANKAN APLIKASI BANK SAMPAH
+======================================================
+
+Aplikasi ini dibangun menggunakan bahasa pemrograman Python dan framework Streamlit. 
+Ikuti langkah-langkah di bawah ini untuk menjalankan aplikasi pada komputer/laptop baru.
+
+------------------------------------------------------
+TAHAP 1: PERSIAPAN AWAL (Hanya dilakukan 1 kali)
+------------------------------------------------------
+1. Pastikan Python sudah ter-install di komputer. 
+   Jika belum, download dan install dari: https://www.python.org/downloads/
+   (PENTING: Saat install, pastikan centang "Add Python to PATH").
+
+2. Buka aplikasi Terminal (Command Prompt / PowerShell).
+
+3. Masuk ke folder aplikasi ini. Jika Anda menyimpannya di drive E, ketik:
+   E:
+   cd E:\BANK_SAMPAH
+
+4. Install semua perlengkapan (library) yang dibutuhkan aplikasi dengan perintah ini:
+   pip install -r requirements.txt
+
+
+------------------------------------------------------
+TAHAP 2: CARA MENJALANKAN APLIKASI (Dilakukan setiap hari)
+------------------------------------------------------
+1. Buka Terminal (Command Prompt / PowerShell).
+
+2. Masuk ke folder aplikasi:
+   E:
+   cd E:\BANK_SAMPAH
+
+3. Ketik perintah ini lalu tekan Enter:
+   streamlit run app.py
+   atau
+   python -m streamlit run app.py
+
+4. Tunggu beberapa detik, browser internet (Chrome/Edge) akan otomatis terbuka
+   dan menampilkan halaman Dashboard Bank Sampah.
+
+5. Jika browser tidak terbuka otomatis, copy tulisan "Local URL" yang 
+   muncul di layar hitam Terminal (biasanya: http://localhost:8501) 
+   lalu paste ke browser Anda.
+
+
+------------------------------------------------------
+TAHAP 3: CARA MEMATIKAN APLIKASI
+------------------------------------------------------
+1. Buka kembali layar hitam Terminal / PowerShell tempat aplikasi sedang berjalan.
+2. Tekan tombol [ Ctrl + C ] pada keyboard.
+3. Tutup jendela Terminal.
+
+
+------------------------------------------------------
+CATATAN PENTING & KEAMANAN DATA
+------------------------------------------------------
+- Database tersimpan di dalam folder "database/bank_sampah.xlsx".
+- JANGAN MENGHAPUS file excel tersebut saat aplikasi sedang berjalan.
+- Setiap kali Anda menyimpan data baru, sistem otomatis membuat file backup 
+  di dalam folder "database/backup/".
+- Jika terjadi error pada Excel, Anda bisa mengganti file Excel utama dengan 
+  file backup terbaru.
