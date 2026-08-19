@@ -4302,7 +4302,7 @@ def page_login():
         st.markdown("<h2 class='login-header'>Bank Sampah Cendikia Arutala</h2>", unsafe_allow_html=True)
 
         with st.form("form_login"):
-            st.subheader("🔑 Login Pengurus")
+            st.subheader("🔑 Login")
             username = st.text_input("Username").strip()
             password = st.text_input("Password", type="password")
             submit = st.form_submit_button("Masuk 🚀", use_container_width=True, type="primary")
