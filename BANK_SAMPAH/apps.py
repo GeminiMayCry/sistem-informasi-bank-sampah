@@ -4187,39 +4187,48 @@ def page_keuangan():
     )
 
 def render_floating_credits():
-    # 1. CSS posisi melayang di pojok kanan bawah
     st.markdown(
         """
         <style>
+        /* Mengunci posisi dan lebar popover di kanan bawah */
         div[data-testid="stPopover"] {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 999999;
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            z-index: 999999 !important;
+            width: auto !important;
+            max-width: 300px !important;
         }
+
+        /* Merapikan gaya tombol Credits */
         div[data-testid="stPopover"] > button {
             border-radius: 50px !important;
             background-color: #2e7d32 !important;
             color: white !important;
             border: none !important;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
-            padding: 10px 18px !important;
+            padding: 8px 16px !important;
             font-weight: bold !important;
+            white-space: nowrap !important;
+            width: auto !important;
             transition: transform 0.2s ease-in-out;
         }
+
         div[data-testid="stPopover"] > button:hover {
             transform: scale(1.05);
             background-color: #1b5e20 !important;
+        }
+
+        /* Mengunci lebar isi popover saat diklik agar tidak melar */
+        div[data-testid="stPopoverBody"] {
+            max-width: 320px !important;
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # 2. Isi Popover saat tombol diklik
     with st.popover("✨ Credits", help="Klik untuk melihat pengembang & info KKN"):
-        
-        # --- PEMBUAT / DEVELOPERS ---
         st.markdown("**💻 Development Team:**")
         st.markdown(
             """
@@ -4230,8 +4239,6 @@ def render_floating_credits():
         )
         
         st.divider()
-        
-        # --- SPECIAL THANKS ---
         st.markdown("**🌟 Special Thanks to:**")
         st.markdown(
             """
@@ -4243,17 +4250,13 @@ def render_floating_credits():
         )
         
         st.divider()
-        
-        # --- LINK SOSIAL MEDIA KKN ---
         st.markdown("**📲 Media Sosial KKN:**")
         
         col_ig, col_tt = st.columns(2)
         with col_ig:
-            # Ganti dengan link Instagram KKN Kelompok 27 kamu
             st.link_button("📸 Instagram", "https://www.instagram.com/sabalas27/", use_container_width=True)
         
         with col_tt:
-            # Ganti dengan link TikTok KKN Kelompok 27 kamu
             st.link_button("🎵 TikTok", "https://www.tiktok.com/@27sabalas", use_container_width=True)
         
         st.caption("Developed with ❤️ for Kelurahan Balas Klumprik")
