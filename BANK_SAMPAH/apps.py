@@ -4354,12 +4354,6 @@ def main():
     # --- JIKA SUDAH LOGIN, TAMPILKAN APLIKASI UTAMA ---
     render_floating_credits()
 
-    # Tombol Logout & Info User di Sidebar
-    st.sidebar.write(f"👤 Login sebagai: **{st.session_state.get('user', 'Pengurus')}**")
-    if st.sidebar.button("🚪 Logout", use_container_width=True):
-        logout()
-    st.sidebar.divider()
-
     # Menu Navigasi Utama
     menu = sidebar()
 
