@@ -4196,18 +4196,17 @@ def render_floating_credits():
     st.markdown(
         """
         <style>
-        /* Mengunci posisi dan lebar popover di KANAN/KIRI BAWAH */
         div[data-testid="stPopover"] {
             position: fixed !important;
-            bottom: 20px !important;
-            left: 20px !important; /* <-- DIUBAH KE KIRI */
+            top: 20px !important;        /* Ubah dari bottom ke top */
+            left: 20px !important;
             right: auto !important;
+            bottom: auto !important;     /* Set bottom ke auto */
             z-index: 999999 !important;
             width: auto !important;
             max-width: 300px !important;
         }
 
-        /* Merapikan gaya tombol Credits */
         div[data-testid="stPopover"] > button {
             border-radius: 50px !important;
             background-color: #2e7d32 !important;
@@ -4226,7 +4225,6 @@ def render_floating_credits():
             background-color: #1b5e20 !important;
         }
 
-        /* Mengunci lebar isi popover saat diklik agar tidak melar */
         div[data-testid="stPopoverBody"] {
             max-width: 320px !important;
         }
@@ -4237,35 +4235,17 @@ def render_floating_credits():
 
     with st.popover("✨ Credits", help="Klik untuk melihat pengembang & info KKN"):
         st.markdown("**💻 Development Team:**")
-        st.markdown(
-            """
-            * **M.C. Raka Anugrah**
-            * **M. Rafi Ardiansyah**
-            * **Adreian Alexander A.**
-            """
-        )
-        
+        st.markdown("* **M.C. Raka Anugrah**\n* **M. Rafi Ardiansyah**\n* **Adreian Alexander A.**")
         st.divider()
         st.markdown("**🌟 Special Thanks to:**")
-        st.markdown(
-            """
-            * **Tuhan Yang Maha Esa**
-            * **Kelurahan Balas Klumprik**
-            * **Dosen Pembimbing Lapangan (DPL)**
-            * **Teman-teman KKN Kelompok 27 Surabaya UPNVJT**
-            """
-        )
-        
+        st.markdown("* **Tuhan Yang Maha Esa**\n* **Kelurahan Balas Klumprik**\n* **Dosen Pembimbing Lapangan (DPL)**\n* **Teman-teman KKN Kelompok 27 Surabaya UPNVJT**")
         st.divider()
         st.markdown("**📲 Media Sosial KKN:**")
-        
         col_ig, col_tt = st.columns(2)
         with col_ig:
             st.link_button("📸 Instagram", "https://www.instagram.com/sabalas27/", use_container_width=True)
-        
         with col_tt:
             st.link_button("🎵 TikTok", "https://www.tiktok.com/@27sabalas", use_container_width=True)
-        
         st.caption("Developed with ❤️ for Kelurahan Balas Klumprik")
 
 # ============================================================
