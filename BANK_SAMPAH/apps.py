@@ -4263,6 +4263,69 @@ def render_floating_credits():
         st.caption("Developed with ❤️ for Kelurahan Balas Klumprik")
 
 # ============================================================
+# LOGIN PAGE
+# ============================================================
+
+def page_login():
+    st.markdown(
+        """
+        <style>
+        .login-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        div[data-testid="stForm"] {
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    col1, col2, col3 = st.columns([1, 2, 1])
+
+    with col2:
+        # Menghitung lokasi logo secara aman
+        base_dir = Path(__file__).parent
+        logo_path = base_dir / "assets" / "logo.png"
+        root_logo_path = base_dir.parent / "assets" / "logo.png"
+
+        if logo_path.exists():
+            st.image(str(logo_path), use_container_width=True)
+        elif root_logo_path.exists():
+            st.image(str(root_logo_path), use_container_width=True)
+        else:
+            st.title("♻️")
+
+        st.markdown("<h2 class='login-header'>Bank Sampah Cendikia Arutala</h2>", unsafe_allow_html=True)
+
+        with st.form("form_login"):
+            st.subheader("🔑 Login Pengurus")
+            username = st.text_input("Username").strip()
+            password = st.text_input("Password", type="password")
+            submit = st.form_submit_button("Masuk 🚀", use_container_width=True, type="primary")
+
+            if submit:
+                # Ambil data akun dari secrets.toml
+                user_credentials = st.secrets.get("passwords", {})
+
+                if username in user_credentials and str(user_credentials[username]) == password:
+                    st.session_state["authenticated"] = True
+                    st.session_state["user"] = username
+                    st.success("Login berhasil!")
+                    st.rerun()
+                else:
+                    st.error("Username atau password salah!")
+
+
+def logout():
+    st.session_state["authenticated"] = False
+    st.session_state["user"] = None
+    st.rerun()
+
+# ============================================================
 # MAIN
 # ============================================================
 
@@ -4273,8 +4336,25 @@ def main():
         st.info("Pastikan Anda telah mengisi `spreadsheet_url` pada file `.streamlit/secrets.toml`.")
         st.stop()
 
+    # Inisialisasi status autentikasi di Session State
+    if "authenticated" not in st.session_state:
+        st.session_state["authenticated"] = False
+
+    # Jika belum login, tampilkan halaman login saja
+    if not st.session_state["authenticated"]:
+        page_login()
+        return
+
+    # --- JIKA SUDAH LOGIN, TAMPILKAN APLIKASI UTAMA ---
     render_floating_credits()
 
+    # Tombol Logout & Info User di Sidebar
+    st.sidebar.write(f"👤 Login sebagai: **{st.session_state.get('user', 'Pengurus')}**")
+    if st.sidebar.button("🚪 Logout", use_container_width=True):
+        logout()
+    st.sidebar.divider()
+
+    # Menu Navigasi Utama
     menu = sidebar()
 
     if menu == "🏠 Dashboard":
