@@ -796,10 +796,19 @@ def generate_mutasi_pdf(
 # ============================================================
 
 def sidebar():
+    base_dir = Path(__file__).parent
+    logo_path = base_dir / "assets" / "logo.png"
+    root_logo_path = base_dir.parent / "assets" / "logo.png"
 
     col_logo, col_text = st.sidebar.columns([1, 3])
     with col_logo:
-        st.image("assets/logo.png", width=500)  # Sesuaikan ukuran width jika kurang pas
+        if logo_path.exists():
+            st.image(str(logo_path), use_container_width=True)
+        elif root_logo_path.exists():
+            st.image(str(root_logo_path), use_container_width=True)
+        else:
+            st.title("♻️")
+
     with col_text:
         st.markdown("### **BANK SAMPAH**<br>**CENDIKIA ARUTALA**", unsafe_allow_html=True)
 
