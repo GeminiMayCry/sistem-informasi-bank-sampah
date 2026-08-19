@@ -1,0 +1,8 @@
+# Abaikan folder rahasia Streamlit
+.streamlit/secrets.toml
+
+# Abaikan cache python
+__pycache__/
+*.pyc
+.venv/
+env/
