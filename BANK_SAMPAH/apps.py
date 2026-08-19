@@ -837,18 +837,18 @@ def sidebar():
 
     st.sidebar.divider()
 
-    # 1. Indikator Status Koneksi Google Sheets
+    # 1. Info User & Tombol Logout (Di Bawah Google Sheets Terhubung)
+    st.sidebar.write(f"👤 Login sebagai: **{st.session_state.get('user', 'Pengurus')}**")
+    if st.sidebar.button("🚪 Logout", use_container_width=True):
+        logout()
+
+    # 2. Indikator Status Koneksi Google Sheets
     if check_database():
         st.sidebar.success("Google Sheets Terhubung 🟢")
     else:
         st.sidebar.error("Google Sheets Terputus 🔴")
 
     st.sidebar.divider()
-
-    # 2. Info User & Tombol Logout (Di Bawah Google Sheets Terhubung)
-    st.sidebar.write(f"👤 Login sebagai: **{st.session_state.get('user', 'Pengurus')}**")
-    if st.sidebar.button("🚪 Logout", use_container_width=True):
-        logout()
 
     return menu
 
