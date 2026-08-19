@@ -4190,11 +4190,12 @@ def render_floating_credits():
     st.markdown(
         """
         <style>
-        /* Mengunci posisi dan lebar popover di kanan bawah */
+        /* Mengunci posisi dan lebar popover di KANAN/KIRI BAWAH */
         div[data-testid="stPopover"] {
             position: fixed !important;
             bottom: 20px !important;
-            right: 20px !important;
+            left: 20px !important; /* <-- DIUBAH KE KIRI */
+            right: auto !important;
             z-index: 999999 !important;
             width: auto !important;
             max-width: 300px !important;
