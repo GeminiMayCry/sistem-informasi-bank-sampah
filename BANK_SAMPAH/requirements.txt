@@ -1,6 +1,6 @@
 pandas
 streamlit
 openpyxl
-reportlib
+reportlab
 st-gsheets-connection
 gspread
