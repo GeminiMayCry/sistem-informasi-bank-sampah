@@ -4198,10 +4198,10 @@ def render_floating_credits():
         <style>
         div[data-testid="stPopover"] {
             position: fixed !important;
-            top: 20px !important;        /* Ubah dari bottom ke top */
+            bottom: 20px !important;       
+            top: auto !important; 
             left: 20px !important;
             right: auto !important;
-            bottom: auto !important;     /* Set bottom ke auto */
             z-index: 999999 !important;
             width: auto !important;
             max-width: 300px !important;
